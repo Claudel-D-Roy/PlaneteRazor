@@ -1,0 +1,95 @@
+﻿@*TODO: titre de la page*@
+@page
+@using TP2NASA.Models
+@model TP2NASA.Pages.SondageModel
+@{
+    ViewData["Title"] = "Sondage - Les planètes du système solaire";
+    SelectList planètesPréférées = new(Model.Planètes);
+}
+
+<div class="sondage col-12">
+    <div class="row text-center">
+        <h1>Sondage maison!</h1>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" id="messageSondage" class="p-3"></div>
+        <div class="row text-center">
+            <div class="message col-12"></div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label asp-for="Sondage!.Prénom" class="fw-bold form-label"></label>
+                    <input asp-for="Sondage!.Prénom" class="form-control" />
+                    <span asp-validation-for="Sondage!.Prénom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sondage!.Nom" class="fw-bold form-label"></label>
+                    <input asp-for="Sondage!.Nom" class="form-control" />
+                    <span asp-validation-for="Sondage!.Nom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sondage!.Courriel" class="fw-bold form-label"></label>
+                    <input asp-for="Sondage!.Courriel" class="form-control" />
+                    <span asp-validation-for="Sondage!.Courriel" class="text-danger"></span>
+                </div>
+                <button asp-route-action="@((int)SondageModel.Actions.Envoyer)">Envoyer</button>
+                <button asp-route-action="@((int)SondageModel.Actions.Recommencer)">Recommencer</button>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label asp-for="Sondage!.PlanètePréférée" class="fw-bold form-label">Choisissez votre planète préférée:</label>
+                    <select asp-for="Sondage!.PlanètePréférée!" asp-items="@planètesPréférées" class="form-control"></select>
+                    <span asp-validation-for="Sondage!.PlanètePréférée" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sondage!.Niveau" class="form-label">Choisissez votre niveau de connaisance relatif aux planètes:</label>
+                    <div class="form-check">
+                        <input asp-for="Sondage!.Niveau" class="form-check-input" type="radio" value="80085" />
+                        <label asp-for="Sondage!.Niveau" for="Débutant" class="form-check-label">Débutant</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Sondage!.Niveau" class="form-check-input" type="radio" value="666" />
+                        <label asp-for="Sondage!.Niveau" for="Intermédiaire" class="form-check-label">Intermédiaire</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Sondage!.Niveau" class="form-check-input" type="radio" value="42069" />
+                        <label asp-for="Sondage!.Niveau" for="Avancé" class="form-check-label">Avancé</label>
+                    </div>
+                    <span asp-validation-for="Sondage!.Niveau" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input asp-for="Sondage!.Informé" class="form-check-input" />
+                        <label asp-for="Sondage!.Informé" class="fw-bold form-check-label">Souhaitez-vous être informé sur la découverte de nouvelles planètes</label>
+                    </div>
+                    <span asp-validation-for="Sondage!.Informé" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label asp-for="Sondage!.DernièreVisite" class="fw-bold form-label">Dernière visite</label>
+                    <input asp-for="Sondage!.DernièreVisite!" class="form-control" />
+                    <span asp-validation-for="Sondage!.DernièreVisite" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sondage!.Commentaire" class="fw-bold form-label">Commentaires</label>
+                    <input asp-for="Sondage!.Commentaire" class="form-control" />
+                    <span asp-validation-for="Sondage!.Commentaire" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sondage!.CodePromo" class="fw-bold form-label">Code de promotion (Ex: P123-SDHD-2E)</label>
+                    <input asp-for="Sondage!.CodePromo" class="form-control" />
+                    <span asp-validation-for="Sondage!.CodePromo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/sondage.js" type="text/javascript"></script>
+    }
+}
